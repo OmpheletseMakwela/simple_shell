@@ -3,5 +3,6 @@
 
 #define MAX_INPUT_SIZE 2000
 extern char **environ;
+void exec_command(char *command);
 
 #endif

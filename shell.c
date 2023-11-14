@@ -20,7 +20,10 @@ int main(void)
 	while (1)
 	{
 		printf("#cisfun$ ");
-		getline(&ptr, &n, stdin);
+		if(getline(&ptr, &n, stdin) == -1)
+		{
+			perror("getline:");
+		}
 		strtok(input, "\n");
 		exec_command(input);
 	}
