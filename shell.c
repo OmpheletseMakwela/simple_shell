@@ -17,15 +17,28 @@ int main(void)
 	char *ptr = input;
 	size_t n = 1000;
 
-	while (1)
+	if (isatty(STDIN_FILENO))
 	{
-		printf("#cisfun$ ");
-		if(getline(&ptr, &n, stdin) == -1)
+		while (1)
+		{
+			printf("#cisfun$ ");
+			if (getline(&ptr, &n, stdin) == -1)
+			{
+				perror("getline:");
+			}
+			strtok(input, "\n");
+			exec_command(input);
+		}
+		return (0);
+	}
+	else
+	{
+		if (getline(&ptr, &n, stdin) == -1)
 		{
 			perror("getline:");
 		}
 		strtok(input, "\n");
 		exec_command(input);
+		return (0);
 	}
-	return (0);
 }

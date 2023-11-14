@@ -6,5 +6,6 @@ extern char **environ;
 void exec_command(char *command);
 void env(void);
 int _strcmp(char *s1, char *s2);
+void array(char *str, char **args);
 
 #endif
