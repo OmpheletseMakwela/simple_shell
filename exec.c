@@ -16,10 +16,6 @@ void exec_command(char *command)
 	pid_t pid;
 
 	array(command, args);
-	if (_strcmp(args[0], "env") == 0)
-	{
-		env();
-	}
 	if (_strcmp(args[0], "exit") == 0)
 	{
 		if (args[1] != NULL)
@@ -31,6 +27,11 @@ void exec_command(char *command)
 		perror("fork error");
 	else if (pid == 0)
 	{
+		if (_strcmp(args[0], "env") == 0)
+		{
+			env();
+			exit (0);
+		}
 		execvp(args[0], args);
 		perror("executing error");
 		exit(0);

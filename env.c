@@ -12,10 +12,11 @@
 void env(void)
 {
 	char *env = *environ;
+	char **env_ptr = environ;
 
 	while (env != NULL)
 	{
 		printf("%s\n", env);
-		env = *(environ++);
+		env = *(env_ptr)++;
 	}
 }
