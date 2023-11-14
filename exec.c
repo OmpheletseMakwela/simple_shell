@@ -30,7 +30,7 @@ void exec_command(char *command)
 		if (_strcmp(args[0], "env") == 0)
 		{
 			env();
-			exit (0);
+			exit(0);
 		}
 		execvp(args[0], args);
 		perror("executing error");
