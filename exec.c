@@ -6,6 +6,20 @@
 #include <stdio.h>
 #include <string.h>
 /**
+ * free_args - free up allocated memory for array.
+ * @args: array.
+ * Return: nothing
+ */
+void free_args(char **args)
+{
+	int i;
+
+	for (i = 0; args[i] != NULL; i++)
+	{
+		free(args[i]);
+	}
+}
+/**
  * exec_command - executes a command from terminal.
  * @command: string.
  * Return: nothing.
@@ -24,7 +38,10 @@ void exec_command(char *command)
 	}
 	pid = fork();
 	if (pid == -1)
+	{
 		perror("fork error");
+		exit(EXIT_FAILURE);
+	}
 	else if (pid == 0)
 	{
 		if (_strcmp(args[0], "env") == 0)
@@ -34,8 +51,9 @@ void exec_command(char *command)
 		}
 		execvp(args[0], args);
 		perror("executing error");
-		exit(0);
+		exit(EXIT_FAILURE);
 	}
 	else
-		wait(NULL);
+		wait(pid, NULL, 0);
+		free_args(args);
 }
