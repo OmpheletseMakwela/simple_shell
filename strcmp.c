@@ -10,27 +10,30 @@
  * _strcmp - string compare function
  * @s1: first pointer to a character
  * @s2: second pointer to a character
- * Return: result
+ * Return: s1-s2
  */
 
-int _strcmp(char *s1, char *s2)
+int _strcmp(const char *s1, const char *s2)
 {
-	int result = 0;
-	char *ptr1 = s1;
-	char *ptr2 = s2;
-
-	while (*ptr1 != '\0')
+	if (s1 == NULL || s2 == NULL)
 	{
-		if (*ptr1 != *ptr2)
+		if (s1 == NULL && s2 == NULL)
 		{
-			int i = (int) *ptr1;
-			int i2 = (int)*ptr2;
-
-			result = i - i2;
-			break;
+			return (0);
 		}
-		ptr1++;
-		ptr2++;
+		else if (s1 == NULL)
+		{
+			return (-1);
+		}
+		else
+		{
+			return (1);
+		}
 	}
-	return (result);
+	while (*s1 != '\0' && *s2 != '\0' && *s1 == *s2)
+	{
+		s1++;
+		s2++;
+	}
+	return (*s1 - *s2);
 }
