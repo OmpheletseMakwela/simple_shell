@@ -54,6 +54,8 @@ void exec_command(char *command)
 		exit(EXIT_FAILURE);
 	}
 	else
-		wait(pid, NULL, 0);
+	{	
+		waitpid(pid, NULL, 0);
 		free_args(args);
+	}
 }
