@@ -34,7 +34,8 @@ void exec_command(char *command)
 	{
 		if (args[1] != NULL)
 			exit(atoi(args[1]));
-		exit(0);
+		else
+			exit(0);
 	}
 	pid = fork();
 	if (pid == -1)
