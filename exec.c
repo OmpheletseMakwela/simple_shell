@@ -12,30 +12,47 @@
  */
 void exec_command(char *command)
 {
-	char *args[MAX_INPUT_SIZE];
-	pid_t pid;
+	char *input_commands[MAX_INPUT_SIZE];
+	int numb_commands = 0;
+	int i;
+	char *token = strtok(command, ";");
 
-	array(command, args);
-	if (_strcmp(args[0], "exit") == 0)
+	while (token != NULL && numb_commands < MAX_INPUT_SIZE - 1)
 	{
-		if (args[1] != NULL)
-			exit(atoi(args[1]));
-		exit(0);
+		input_commands[numb_commands++] = token;
+		token = strtok(NULL, ";");
 	}
-	pid = fork();
-	if (pid == -1)
-		perror("fork error");
-	else if (pid == 0)
+	input_commands[numb_commands] = NULL;
+	
+	for (i = 0; i < numb_commands; ++i)
 	{
-		if (_strcmp(args[0], "env") == 0)
+		char *args[MAX_INPUT_SIZE];
+		pid_t pid;
+
+		array(input_commands[i], args);
+		if (_strcmp(args[0], "exit") == 0)
 		{
-			env();
+			if (args[1] != NULL)
+				exit(atoi(args[1]));
 			exit(0);
 		}
-		execvp(args[0], args);
-		perror("executing error");
-		exit(0);
+		pid = fork();
+		if (pid == -1)
+			perror("fork error");
+		else if (pid == 0)
+		{
+			if (_strcmp(args[0], "env") == 0)
+			{
+				env();
+				exit(0);
+			}
+			execvp(args[0], args);
+			perror("executing error");
+			exit(0);
+		}
+		else
+		{
+			wait(NULL);
+		}
 	}
-	else
-		wait(NULL);
 }
