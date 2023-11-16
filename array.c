@@ -17,7 +17,7 @@ void array(char *str, char **args)
 
 	while (token != NULL)
 	{
-		*args = strdup(token);
+		*args = token;
 		token = strtok(NULL, " \n\t");
 		args++;
 	}
